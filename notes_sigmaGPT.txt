@@ -1,0 +1,135 @@
+- In SigmaGPT project we are using gpt-4o-mini model for more go to "https://platform.openai.com/docs/models/gpt-4o-mini"
+
+- And it has only " Oct 01, 2023 knowledge cutoff " i.e this model trained upto that date only, if   we ask any questions after that date it give wrong ans.
+
+What is mean by Token ?
+    - OpenAI's large language models process text using tokens, which are common sequences of characters found in a set of text.
+    - for more go to "https://platform.openai.com/tokenizer" 
+
+- We have an openai npm package to communicate with open ai. to install it " npm i openai"
+  for more go to this documentation "https://www.npmjs.com/package/openai".
+
+  
+As openAI API's are charging money I'm using the OpenRouter API i.e kwaipilot/kat-coder-pro:free 
+for more about it visit : "https://openrouter.ai/kwaipilot/kat-coder-pro:free"
+
+After few day ""https://openrouter.ai/kwaipilot/kat-coder-pro:free" it's also become paid, not every model is free and unlimited at one time they become paid or disable.
+
+so at openAi.js file at line 11 , change model frequently, if output is not generating or showing no response from model or etc., only by changing that model everything going to work fine.
+
+ 
+ ________________________________________________________________________________________________
+
+Data base Schemas:
+
+  we use 2 schemas i) ThreadSchema , ii) messageSchema
+
+  Thread means individual chat sequence
+
+  ThreadSchema 
+        threadId
+        title
+        messages
+        createdAt
+        updatedAt
+
+  messageSchema 
+        content
+        role -> user ,assistant
+        timestamp
+
+In ThreadSchema messages we created another schema called messageSchema 
+
+________________________________________________________________________________________________
+
+backend:
+
+
+First after creating the database in Mongodb, we must use and insert the dummy data to see connection with mongodb is working fine.
+with this we get clarity that we can now use and perform CRUD operations.
+
+Routes: chat.js
+
+      GET -> /thread/                     -> used to display all the thread info at left side based on updated_At time
+      GET -> /thread/:threadId            -> to display specific thread info. when we click on thread on left side (history) to display that thread info we use it
+      DELETE -> /thread/:threadId         -> to delete a specific thread
+    * POST -> /chat                       -> to display new messages and reply from backend
+
+In POST -> /chat
+
+      - we already a /api route for gpt api call
+
+      when we type message in message box in frontend , after clicking submit button it goes to backend with route "/api/chat"
+      and in that /api/chat it consist of threadId and content.
+
+      and backend call the api call for openRouter api and it sends reply to the backend. and backend send response to the frontend.
+
+      after reply send to frontend we must save that reply message into db. and also change updateAt date with present date
+
+
+      first validate the theadId and message
+
+      if threadId is already exist in dababase (that means we using history of chats) then we simply push that message in content in db using threadId.
+
+      if threadId is not exist in db (then it is a new chat) then we create a new thread in db with threadId, content
+
+
+for route checking go to thunder client extension in vs code click new request
+
+for new chat or existing chat 
+
+      POST  http://localhost:8080/api/chat
+
+For delete chat 
+
+      DELETE http://localhost:8080/api/thread/<threadId>
+
+Get specific chat
+
+      GET http://localhost:8080/api/thread/<threadId>
+
+________________________________________________________________________________________________
+
+Frontend:
+
+      - using react
+
+
+
+For Loaders :
+
+      - there is an npm package called react-spinners. it has many different types of loaders.
+      - go to npmjs.com official website -> react-spinners -> demo page for different loaders
+      - https://www.npmjs.com/package/react-spinners
+
+      
+Functionality :
+
+ 1) Sending prompt to backend and getting reply and added loader
+ 2) Showing the chats (prompt + reply)
+ 3) Formatting gpt
+
+
+
+3) In formatting gpt:
+      - when we give prompt to our gpt it gives us reply with un-designed or not in formate way.
+      - to get it in formate and designed way we use two npm packages "react-markdown" and "rehype-highlight"
+            npm i react-markdown
+            npm i rehype-highlight
+      for more info. read it in npmjs.org website  
+
+
+2) Showing all Threads  
+      In DB prevChats we store all previous chats in them and we want to show them in sidebar in history section.
+
+
+In Sidebar.jsx at Line 82 we use e.stopPropagation(),
+      means if both parent and child are overlapped together in one component it stops that. (stops that event bubbling)
+      In output at history we can see that both history and delete button are overlap one another. even if we click on delete button it is connect with parent so it get's activated to avoid this we use this.
+
+
+For Dropdown we create a new react useState  at ChatWindow.jsx file
+
+      const[isOpen, setIsOpen] = useState(false)  default false, false means drop down is not open true means it is open.
+
+
