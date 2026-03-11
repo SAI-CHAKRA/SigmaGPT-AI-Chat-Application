@@ -3,7 +3,6 @@ import 'dotenv/config';
 import cors from "cors";
 import chatRoutes from "./routes/chat.js";
 
-import OpenAI from 'openai';
 
 import mongoose from "mongoose";
 

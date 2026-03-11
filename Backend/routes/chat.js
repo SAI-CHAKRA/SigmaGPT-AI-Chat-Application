@@ -1,6 +1,6 @@
 import express from "express";
 import Thread from "../models/Thread.js";
-import getOpenAI_API_Response from "../utils/openAI.js"
+import getOpenRouter_API_Response from "../utils/openRouter.js"
 
 const router = express.Router();
 
@@ -78,6 +78,7 @@ router.post("/chat", async(req,res)=>{
 
     try{ 
         let thread = await Thread.findOne({threadId});
+        // console.log(thread);
         if(!thread){
             thread = new Thread({
                 threadId,
@@ -88,9 +89,8 @@ router.post("/chat", async(req,res)=>{
         else{
             thread.messages.push({role:"user", content:message});
         }
-        const assistantReply = await getOpenAI_API_Response(message); 
+        const assistantReply = await getOpenRouter_API_Response(message); 
 
-       
         if (!assistantReply) {
             return res.status(500).json({ error: "AI failed to respond, Error from assistantReply at chat.js" });
         }
