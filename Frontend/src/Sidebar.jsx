@@ -13,7 +13,7 @@ function Sidebar(){
 
     const getAllThreads = async()=>{
         try{
-            const response = await fetch("http://localhost:8080/api/thread");
+            const response = await fetch("https://sigmagpt-ai-chat-application.onrender.com/api/thread");
             const res = await response.json();
 
             const filterData = res.map(thread =>({
@@ -43,7 +43,7 @@ function Sidebar(){
     const changeThread = async (newThreadId)=>{
         setCurrThreadId(newThreadId);
         try{
-            const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
+            const response = await fetch(`https://sigmagpt-ai-chat-application.onrender.com/api/thread/${newThreadId}`);
             const res = await response.json();
 
             // console.log(res);
