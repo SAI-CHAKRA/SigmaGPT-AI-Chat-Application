@@ -60,7 +60,7 @@ function Sidebar(){
 
     const deleteThread = async (threadId)=>{
         try{
-            const response = await fetch(`http://localhost:8080/api/thread/${threadId}`, {method:"DELETE"});
+            const response = await fetch(`https://sigmagpt-ai-chat-application.onrender.com/api/thread/${threadId}`, {method:"DELETE"});
             const res = await response.json();
             console.log(res);
 
