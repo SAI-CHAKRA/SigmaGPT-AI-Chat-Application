@@ -29,7 +29,8 @@ const connectDB = async()=>{
   }
 }
 
-app.post("/test", async(req,res)=>{
-  
-});
 
+app.use(cors({
+  origin: "https://sigmagpt-frontend.vercel.app", 
+  credentials: true
+}));
