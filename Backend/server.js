@@ -33,3 +33,5 @@ app.use(cors({
   origin: "https://sigmagpt-ai-chat-application.onrender.com", 
   credentials: true
 }));
+
+app.get("/", (req, res) => res.send("SigmaGPT Backend is Live!"));
