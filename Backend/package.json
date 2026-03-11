@@ -5,6 +5,7 @@
     "express": "^5.1.0",
     "mongoose": "^8.19.3",
     "nodemon": "^3.1.10",
-    "openai": "^6.8.1"
+    "openai": "^6.8.1",
+    "type": "module"
   }
 }

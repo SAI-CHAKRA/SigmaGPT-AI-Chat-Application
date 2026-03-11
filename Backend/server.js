@@ -31,6 +31,6 @@ const connectDB = async()=>{
 
 
 app.use(cors({
-  origin: "https://sigmagpt-frontend.vercel.app", 
+  origin: "https://sigmagpt-ai-chat-application.onrender.com", 
   credentials: true
 }));
